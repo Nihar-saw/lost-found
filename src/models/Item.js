@@ -69,6 +69,24 @@ const itemSchema = new mongoose.Schema(
       default: "",
     },
 
+    contactName: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+
+    contactPhone: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+
+    contactMethod: {
+      type: String,
+      enum: ["whatsapp", "call", "email", "in-person", ""],
+      default: "",
+    },
+
     aiFeatures: {
       category: String,
       brand: String,
