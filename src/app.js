@@ -10,6 +10,7 @@ import postRoutes from "./routes/postRoutes.js";
 import commentRoutes from "./routes/commentRoutes.js";
 import notificationRoutes from "./routes/notificationRoutes.js";
 import searchRoutes from "./routes/searchRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
 
 import errorMiddleware from "./middleware/errorMiddleware.js";
 
@@ -49,6 +50,7 @@ app.use("/api/posts", postRoutes);
 app.use("/api/comments", commentRoutes);
 app.use("/api/notifications", notificationRoutes);
 app.use("/api/search", searchRoutes);
+app.use("/api/admin", adminRoutes);
 
 app.use(errorMiddleware);
 

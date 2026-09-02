@@ -5,6 +5,7 @@ import {
   getItemById,
   getMyItems,
   updateItemStatus,
+  deleteItem,
 } from "../controllers/itemController.js";
 
 import authMiddleware from "../middleware/authMiddleware.js";
@@ -31,4 +32,10 @@ router.patch(
   updateItemStatus
 );
 
-export default router;
+router.delete(
+  "/:id",
+  authMiddleware,
+  deleteItem
+);
+
+export default router;

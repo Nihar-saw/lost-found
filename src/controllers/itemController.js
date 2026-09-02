@@ -1,5 +1,7 @@
 import Item from "../models/Item.js";
-import { uploadImage } from "../services/imageService.js";
+import Match from "../models/Match.js";
+import Claim from "../models/Claim.js";
+import { uploadImage, deleteImage } from "../services/imageService.js";
 import { analyzeItem } from "../services/aiService.js";
 import { findMatchesForItem } from "../services/matchingService.js";
 
@@ -160,3 +162,48 @@ export const updateItemStatus = async (req, res, next) => {
     next(error);
   }
 };
+
+export const deleteItem = async (req, res, next) => {
+  try {
+    const item = await Item.findById(req.params.id);
+
+    if (!item) {
+      return res.status(404).json({
+        success: false,
+        message: "Item not found",
+      });
+    }
+
+    // Only the owner can delete
+    if (item.userId.toString() !== req.user._id.toString()) {
+      return res.status(403).json({
+        success: false,
+        message: "You are not authorized to delete this item",
+      });
+    }
+
+    // Delete Cloudinary image if one exists
+    if (item.imagePublicId) {
+      await deleteImage(item.imagePublicId);
+    }
+
+    // Clean up related matches
+    await Match.deleteMany({
+      $or: [{ lostItemId: item._id }, { foundItemId: item._id }],
+    });
+
+    // Clean up related claims
+    await Claim.deleteMany({
+      $or: [{ lostItemId: item._id }, { foundItemId: item._id }],
+    });
+
+    await Item.findByIdAndDelete(item._id);
+
+    res.json({
+      success: true,
+      message: "Item removed successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
