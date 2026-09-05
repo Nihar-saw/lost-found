@@ -15,13 +15,20 @@ export const createItem = async (req, res, next) => {
       brand,
       color,
       location,
+      campusZone,
       latitude,
       longitude,
       date,
       time,
+      verificationQuestion,
+      contactName,
+      contactPhone,
+      contactMethod,
     } = req.body;
 
-    if (!type || !title || !description || !location || !date) {
+    const resolvedLocation = location || campusZone || "";
+
+    if (!type || !title || !description || !resolvedLocation || !date) {
       return res.status(400).json({
         success: false,
         message:
@@ -49,16 +56,21 @@ export const createItem = async (req, res, next) => {
       type,
       title,
       description,
-      category: category || aiFeatures.category,
-      brand: brand || aiFeatures.brand,
-      color: color || aiFeatures.color,
+      category: category || aiFeatures?.category,
+      brand: brand || aiFeatures?.brand,
+      color: color || aiFeatures?.color,
       imageUrl,
       imagePublicId,
-      location,
+      location: resolvedLocation,
+      campusZone: campusZone || resolvedLocation,
       latitude: latitude ? Number(latitude) : null,
       longitude: longitude ? Number(longitude) : null,
       date,
       time,
+      contactName: contactName || "",
+      contactPhone: contactPhone || "",
+      contactMethod: contactMethod || "in-person",
+      verificationQuestion: verificationQuestion || "",
       aiFeatures,
       userId: req.user._id,
     });

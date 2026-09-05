@@ -198,8 +198,8 @@ export const getUserMatches = async (userId) => {
   })
     .populate("lostItemId")
     .populate("foundItemId")
-    .populate("lostUserId", "name email")
-    .populate("foundUserId", "name email")
+    .populate("lostUserId", "name email phone role")
+    .populate("foundUserId", "name email phone role")
     .sort({ createdAt: -1 });
 };
 
@@ -207,12 +207,12 @@ export const getMatchById = async (matchId) => {
   return Match.findById(matchId)
     .populate({
       path: "lostItemId",
-      populate: { path: "userId", select: "name email" },
+      populate: { path: "userId", select: "name email phone role" },
     })
     .populate({
       path: "foundItemId",
-      populate: { path: "userId", select: "name email" },
+      populate: { path: "userId", select: "name email phone role" },
     })
-    .populate("lostUserId", "name email")
-    .populate("foundUserId", "name email");
+    .populate("lostUserId", "name email phone role")
+    .populate("foundUserId", "name email phone role");
 };

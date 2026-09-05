@@ -9,7 +9,7 @@ const postSchema = new mongoose.Schema(
     },
     type: {
       type: String,
-      enum: ["lost", "found"],
+      enum: ["lost", "found", "general"],
       required: true,
     },
     title: {
@@ -20,6 +20,10 @@ const postSchema = new mongoose.Schema(
     description: {
       type: String,
       required: true,
+    },
+    content: {
+      type: String,
+      default: "",
     },
     category: {
       type: String,
@@ -47,7 +51,7 @@ const postSchema = new mongoose.Schema(
     },
     date: {
       type: Date,
-      required: true,
+      default: Date.now,
     },
     time: {
       type: String,

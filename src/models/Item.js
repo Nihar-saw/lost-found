@@ -49,6 +49,16 @@ const itemSchema = new mongoose.Schema(
       required: true,
     },
 
+    campusZone: {
+      type: String,
+      default: "",
+    },
+
+    verificationQuestion: {
+      type: String,
+      default: "",
+    },
+
     latitude: {
       type: Number,
       default: null,

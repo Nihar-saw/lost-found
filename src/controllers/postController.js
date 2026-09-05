@@ -6,6 +6,7 @@ export const createPost = async (req, res, next) => {
       type,
       title,
       description,
+      content,
       category,
       brand,
       color,
@@ -16,7 +17,9 @@ export const createPost = async (req, res, next) => {
       time,
     } = req.body;
 
-    if (!type || !title || !description || !location) {
+    const postDescription = description || content || "";
+
+    if (!type || !title || !postDescription || !location) {
       return res.status(400).json({
         success: false,
         message: "Type, title, description, and location are required",
@@ -27,14 +30,15 @@ export const createPost = async (req, res, next) => {
       userId: req.user._id,
       type,
       title,
-      description,
+      description: postDescription,
+      content: postDescription,
       category,
       brand,
       color,
       location,
       latitude,
       longitude,
-      date,
+      date: date || new Date(),
       time,
       file: req.file,
     });

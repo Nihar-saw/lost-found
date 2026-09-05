@@ -16,6 +16,7 @@ const notificationSchema = new mongoose.Schema(
         "claim_approved",
         "claim_rejected",
         "item_returned",
+        "chat_message",
       ],
       required: true,
     },
@@ -31,6 +32,7 @@ const notificationSchema = new mongoose.Schema(
       matchId: { type: mongoose.Schema.Types.ObjectId, ref: "Match" },
       claimId: { type: mongoose.Schema.Types.ObjectId, ref: "Claim" },
       itemId: { type: mongoose.Schema.Types.ObjectId, ref: "Item" },
+      conversationId: { type: mongoose.Schema.Types.ObjectId, ref: "Conversation" },
       matchScore: Number,
     },
     read: {

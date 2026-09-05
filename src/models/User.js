@@ -28,6 +28,12 @@ const userSchema = new mongoose.Schema(
       enum: ["student", "admin"],
       default: "student",
     },
+
+    phone: {
+      type: String,
+      default: "",
+      trim: true,
+    },
   },
   {
     timestamps: true,
