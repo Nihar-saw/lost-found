@@ -88,7 +88,7 @@ export const generateInsights = async (data) => {
   // Try Gemini if API key is available
   if (genAI && env.geminiApiKey && env.geminiApiKey !== "your_gemini_api_key") {
     try {
-      const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
       const prompt = `
 You are an AI analyst for a campus lost-and-found platform.
